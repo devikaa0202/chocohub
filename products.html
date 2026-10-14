@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChocoHub | Our Products</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff7ed;
+    color: #35170f;
+}
+
+header {
+    background: #28110b;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: #e9b765;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    color: #e9b765;
+}
+
+.hero {
+    background: linear-gradient(120deg, #32170f, #75432d);
+    color: white;
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.hero h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: #e9b765;
+}
+
+.hero p {
+    color: #f4dfcf;
+    font-size: 17px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.heading h2 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.heading p {
+    color: #80685a;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filters button {
+    padding: 10px 18px;
+    border: 1px solid #75432d;
+    border-radius: 25px;
+    background: white;
+    color: #35170f;
+    cursor: pointer;
+}
+
+.filters button.active,
+.filters button:hover {
+    background: #35170f;
+    color: white;
+}
+
+.search {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    padding: 14px;
+    border: 1px solid #d9c4b3;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #35170f12;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px #35170f25;
+}
+
+.product-image {
+    height: 210px;
+    background: #f0dfd0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 85px;
+}
+
+.card:nth-child(3n+2) .product-image {
+    background: #ead6b9;
+}
+
+.card:nth-child(3n) .product-image {
+    background: #e7cfc1;
+}
+
+.card-content {
+    padding: 22px;
+}
+
+.category {
+    color: #a46b37;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.card h3 {
+    margin: 8px 0;
+    font-size: 21px;
+}
+
+.card p {
+    color: #80685a;
+    font-size: 14px;
+    min-height: 45px;
+    line-height: 1.5;
+}
+
+.price {
+    display: block;
+    color: #874a24;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.price small {
+    font-size: 12px;
+    color: #80685a;
+    font-weight: normal;
+}
+
+.add-btn {
+    width: 100%;
+    padding: 12px;
+    background: #35170f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #75432d;
+}
+
+.empty {
+    display: none;
+    text-align: center;
+    padding: 35px;
+}
+
+.benefits {
+    background: #f0e0d0;
+    padding: 40px 7%;
+    display: flex;
+    justify-content: space-around;
+    gap: 25px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.benefits div {
+    max-width: 250px;
+}
+
+.benefits h3 {
+    margin: 10px 0;
+}
+
+.benefits p {
+    color: #80685a;
+    font-size: 14px;
+}
+
+footer {
+    background: #28110b;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+footer span {
+    color: #e9b765;
+}
+
+.toast {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28110b;
+    color: white;
+    padding: 15px 22px;
+    border-radius: 10px;
+    max-width: 90%;
+    z-index: 5;
+}
+
+@media (max-width: 850px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .heading h2 {
+        font-size: 28px;
+    }
+
+    nav {
+        text-align: center;
+        line-height: 2.2;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🍫 ChocoHub</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <button class="add-btn" style="width:auto"
+            onclick="showCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+</header>
+
+<section class="hero">
+    <h1>Our Delicious <span>Chocolates</span> 🍫</h1>
+    <p>Handmade with love, crafted for happiness!</p>
+</section>
+
+<main class="container">
+
+    <div class="heading">
+        <h2>Discover Our Sweet Collection</h2>
+        <p>Find your favourite chocolate at ChocoHub.</p>
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="🔍 Search chocolates..."
+        aria-label="Search chocolates"
+    >
+
+    <div class="filters">
+        <button class="active" data-category="All">All Products</button>
+        <button data-category="Dark">Dark Chocolate</button>
+        <button data-category="Milk">Milk Chocolate</button>
+        <button data-category="Nuts">Nutty Chocolate</button>
+        <button data-category="Special">Special</button>
+    </div>
+
+    <div class="products" id="products">
+
+        <article class="card" data-category="Dark"
+                 data-name="classic dark chocolate">
+            <div class="product-image">🍫</div>
+            <div class="card-content">
+                <span class="category">Dark Collection</span>
+                <h3>Classic Dark Chocolate</h3>
+                <p>Rich cocoa flavour with a smooth and satisfying taste.</p>
+                <span class="price">₹199 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Classic Dark Chocolate',199)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Milk"
+                 data-name="creamy milk chocolate">
+            <div class="product-image">🍫</div>
+            <div class="card-content">
+                <span class="category">Milk Collection</span>
+                <h3>Creamy Milk Chocolate</h3>
+                <p>Deliciously creamy sweetness for every chocolate lover.</p>
+                <span class="price">₹179 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Creamy Milk Chocolate',179)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Nuts"
+                 data-name="almond crunch">
+            <div class="product-image">🌰</div>
+            <div class="card-content">
+                <span class="category">Nutty Collection</span>
+                <h3>Almond Crunch</h3>
+                <p>A wonderful combination of chocolate and crunchy almonds.</p>
+                <span class="price">₹249 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Almond Crunch',249)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Special"
+                 data-name="chocolate truffles">
+            <div class="product-image">🍬</div>
+            <div class="card-content">
+                <span class="category">Premium Collection</span>
+                <h3>Chocolate Truffles</h3>
+                <p>Soft, indulgent chocolate bites for your special moments.</p>
+                <span class="price">₹299 <small>/ 6 pieces</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Chocolate Truffles',299)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Special"
+                 data-name="strawberry chocolate">
+            <div class="product-image">🍓</div>
+            <div class="card-content">
+                <span class="category">Special Collection</span>
+                <h3>Strawberry Chocolate</h3>
+                <p>A fruity-inspired treat for your sweetest occasions.</p>
+                <span class="price">₹249 <small>/ 6 pieces</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Strawberry Chocolate',249)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Nuts"
+                 data-name="hazelnut bliss">
+            <div class="product-image">🍫</div>
+            <div class="card-content">
+                <span class="category">Nutty Collection</span>
+                <h3>Hazelnut Bliss</h3>
+                <p>A nutty chocolate delight made for rich flavour lovers.</p>
+                <span class="price">₹279 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Hazelnut Bliss',279)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Milk"
+                 data-name="caramel melt">
+            <div class="product-image">🍯</div>
+            <div class="card-content">
+                <span class="category">Milk Collection</span>
+                <h3>Caramel Melt</h3>
+                <p>A delicious caramel-inspired chocolate experience.</p>
+                <span class="price">₹229 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Caramel Melt',229)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Special"
+                 data-name="chocolate gift box">
+            <div class="product-image">🎁</div>
+            <div class="card-content">
+                <span class="category">Gift Collection</span>
+                <h3>ChocoHub Gift Box</h3>
+                <p>A lovely assortment of chocolates for someone special.</p>
+                <span class="price">₹499 <small>/ box</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('ChocoHub Gift Box',499)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+        <article class="card" data-category="Dark"
+                 data-name="chocolate bark">
+            <div class="product-image">🍫</div>
+            <div class="card-content">
+                <span class="category">Artisan Collection</span>
+                <h3>Chocolate Bark</h3>
+                <p>Rustic chocolate pieces perfect for a delightful snack.</p>
+                <span class="price">₹219 <small>/ 100 g</small></span>
+                <button class="add-btn"
+                    onclick="addToCart('Chocolate Bark',219)">
+                    🛒 Add to Cart
+                </button>
+            </div>
+        </article>
+
+    </div>
+
+    <div class="empty" id="empty">
+        <h3>🍫 No chocolates found!</h3>
+        <p>Try searching for another product.</p>
+    </div>
+
+</main>
+
+<section class="benefits">
+    <div>
+        <h2>❤️</h2>
+        <h3>Made with Love</h3>
+        <p>Every creation is inspired by homemade goodness.</p>
+    </div>
+
+    <div>
+        <h2>🍫</h2>
+        <h3>Quality & Taste</h3>
+        <p>Sweet treats for all your special moments.</p>
+    </div>
+
+    <div>
+        <h2>🎁</h2>
+        <h3>Perfect Gifts</h3>
+        <p>Share happiness with every chocolate box.</p>
+    </div>
+</section>
+
+<footer>
+    <h2><span>🍫 ChocoHub</span></h2>
+    <p>Handcrafted with love, shared with happiness.</p>
+    <p>© 2026 ChocoHub. All rights reserved.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+let cart = [];
+let activeCategory = "All";
+
+function addToCart(name, price) {
+    let item = cart.find(product => product.name === name);
+
+    if (item) {
+        item.quantity++;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
+
+    document.getElementById("cartCount").textContent =
+        cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    showToast(name + " added to your cart!");
+}
+
+function showCart() {
+    if (cart.length === 0) {
+        showToast("Your cart is empty!");
+        return;
+    }
+
+    let total = 0;
+
+    let details = cart.map(item => {
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        return item.name + " x " + item.quantity +
+            " = ₹" + subtotal;
+    });
+
+    alert(
+        "YOUR CHOCOHUB CART\n\n" +
+        details.join("\n") +
+        "\n\nTotal: ₹" + total +
+        "\n\nContact us to complete your order."
+    );
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(() => {
+        toast.style.display = "none";
+    }, 2500);
+}
+
+function filterProducts() {
+    const searchText = document.getElementById("search")
+        .value.toLowerCase().trim();
+
+    const cards = document.querySelectorAll(".card");
+    let count = 0;
+
+    cards.forEach(card => {
+        const name = card.dataset.name;
+        const category = card.dataset.category;
+        const matchesCategory =
+            activeCategory === "All" ||
+            category === activeCategory;
+
+        const matchesSearch =
+            name.includes(searchText) ||
+            card.innerText.toLowerCase().includes(searchText);
+
+        const visible = matchesCategory && matchesSearch;
+
+        card.style.display = visible ? "" : "none";
+
+        if (visible) count++;
+    });
+
+    document.getElementById("empty").style.display =
+        count === 0 ? "block" : "none";
+}
+
+document.querySelectorAll(".filters button").forEach(button => {
+    button.addEventListener("click", () => {
+        activeCategory = button.dataset.category;
+
+        document.querySelectorAll(".filters button")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+        filterProducts();
+    });
+});
+
+document.getElementById("search")
+    .addEventListener("input", filterProducts);
+
+filterProducts();
+</script>
+
+</body>
+</html>
